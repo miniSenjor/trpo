@@ -1,0 +1,23 @@
+﻿<Window x:Class="trpo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:trpo"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="1000">
+    <Grid>
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                <Label Margin="5 0">Размер массива =</Label>
+                <TextBox Width="100" Margin="5 0"/>
+                <Button x:Name="btnPaint" Margin="5 0" Padding="5 0" Click="btnPaint_Click">Построить</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                <oxy:PlotView Name="Graph1" Model="{Binding PlotModel1}" Width="500" Height="400"/>
+                <oxy:PlotView Name="Graph2" Model="{Binding PlotModel2}" Width="500" Height="400"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
