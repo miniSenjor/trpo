@@ -6,18 +6,25 @@
         xmlns:local="clr-namespace:trpo"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000">
+        Title="MainWindow" Height="500" Width="800">
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                 <Label Margin="5 0">Размер массива =</Label>
-                <TextBox Width="100" Margin="5 0"/>
+                <TextBox x:Name="txtCount" Width="100" Margin="5 0"/>
                 <Button x:Name="btnPaint" Margin="5 0" Padding="5 0" Click="btnPaint_Click">Построить</Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                <oxy:PlotView Name="Graph1" Model="{Binding PlotModel1}" Width="500" Height="400"/>
-                <oxy:PlotView Name="Graph2" Model="{Binding PlotModel2}" Width="500" Height="400"/>
-            </StackPanel>
+            <DockPanel DockPanel.Dock="Bottom">
+                <oxy:PlotView x:Name="Graph" DockPanel.Dock="Left" Width="550" Height="400"/>
+                <TextBox x:Name="txtArray" DockPanel.Dock="Top" Margin="10"/>
+                <RadioButton x:Name="rbSimpleSort" GroupName="SortMethod" IsChecked="True" Content="Обычнык вставки" DockPanel.Dock="Top"/>
+                <RadioButton x:Name="rbBinariSort" GroupName="SortMethod" Content="Бинарными вставками"  DockPanel.Dock="Top"/>
+                <Button DockPanel.Dock="Top" Click="btnSort_Click" Content="Сортировать" Margin="10" Height="25"/>
+                <StackPanel Orientation="Horizontal">
+                    <ListBox x:Name="ListBoxNumbers" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"/>
+                    <TextBlock x:Name="txtCurrentElement" VerticalAlignment="Top"  Width="20" Height="20" Text=""/>
+                </StackPanel>
+            </DockPanel>
         </DockPanel>
     </Grid>
 </Window>
