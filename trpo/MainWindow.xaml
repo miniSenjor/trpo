@@ -15,14 +15,20 @@
                 <Button x:Name="btnPaint" Margin="5 0" Padding="5 0" Click="btnPaint_Click">Построить</Button>
             </StackPanel>
             <DockPanel DockPanel.Dock="Bottom">
-                <oxy:PlotView x:Name="Graph" DockPanel.Dock="Left" Width="550" Height="400"/>
+                <oxy:PlotView x:Name="Graph" DockPanel.Dock="Left" Model="{Binding plotModelDefalt}" Width="550" Height="400"/>
                 <TextBox x:Name="txtArray" DockPanel.Dock="Top" Margin="10"/>
                 <RadioButton x:Name="rbSimpleSort" GroupName="SortMethod" IsChecked="True" Content="Обычнык вставки" DockPanel.Dock="Top"/>
                 <RadioButton x:Name="rbBinariSort" GroupName="SortMethod" Content="Бинарными вставками"  DockPanel.Dock="Top"/>
                 <Button DockPanel.Dock="Top" Click="btnSort_Click" Content="Сортировать" Margin="10" Height="25"/>
                 <StackPanel Orientation="Horizontal">
-                    <ListBox x:Name="ListBoxNumbers" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"/>
-                    <TextBlock x:Name="txtCurrentElement" VerticalAlignment="Top"  Width="20" Height="20" Text=""/>
+                    <ListBox x:Name="ListBoxId" 
+                             HorizontalAlignment="Center" 
+                             FontSize="18" 
+                             VerticalAlignment="Top" 
+                             Margin="10"
+                             BorderThickness="0"/>
+                    <ListBox x:Name="ListBoxNumbers" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" Margin="10 33 10 10"/>
+                    <TextBlock x:Name="txtCurrentElement" VerticalAlignment="Top" FontSize="18" Width="20" Height="20" Text="" Margin="10"/>
                 </StackPanel>
             </DockPanel>
         </DockPanel>

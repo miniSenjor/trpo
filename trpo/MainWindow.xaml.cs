@@ -25,6 +25,7 @@ namespace trpo
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
 
         private void btnPaint_Click(object sender, RoutedEventArgs e)
@@ -62,6 +63,7 @@ namespace trpo
                 if (int.TryParse(numberStr, out int number))
                 {
                     array.Add(number);
+                    ListBoxNumbers.Items.Clear();
                     ListBoxNumbers.Items.Add(number);
                 }
                 else
@@ -83,6 +85,13 @@ namespace trpo
 
         private async Task InsertionSort(List<int> numbers)
         {
+            //ListBoxId.Visibility = Visibility.Collapsed;
+            List<int> id = new List<int>();
+            for (int i = 1; i <= numbers.Count; i++)
+                id.Add(i);
+            UpdateListBox(ListBoxId, id);
+            ListBoxId.Items.Insert(0, "№");
+
             int n = numbers.Count;
             for (int i = 1; i < n; i++)
             {
@@ -97,7 +106,7 @@ namespace trpo
                     j--;
 
                     // Обновляем отображение в ListBox
-                    UpdateListBox(numbers);
+                    UpdateListBox(ListBoxNumbers, numbers);
                     ListBoxNumbers.SelectedIndex = j + 1;
                     ListBoxNumbers.ScrollIntoView(ListBoxNumbers.SelectedItem);
                     await Task.Delay(1000); // Задержка для визуализации
@@ -105,7 +114,7 @@ namespace trpo
                 numbers[j + 1] = key;
 
                 // Обновляем отображение в ListBox
-                UpdateListBox(numbers);
+                UpdateListBox(ListBoxNumbers, numbers);
                 ListBoxNumbers.SelectedIndex = j + 1;
                 ListBoxNumbers.ScrollIntoView(ListBoxNumbers.SelectedItem);
                 await Task.Delay(1000); // Задержка для визуализации
@@ -114,6 +123,13 @@ namespace trpo
 
         private async Task BinaryInsertionSort(List<int> numbers)
         {
+            //ListBoxId.Visibility = Visibility.Visible;
+            List<int> id = new List<int>();
+            for (int i = 1; i<= numbers.Count; i++)
+                id.Add(i);
+            UpdateListBox(ListBoxId, id);
+            ListBoxId.Items.Insert(0, "№");
+
             for (int i = 1; i < numbers.Count; i++)
             {
                 int key = numbers[i];
@@ -124,6 +140,7 @@ namespace trpo
                 while (left <= right)
                 {
                     int mid = left + (right - left) / 2;
+                    PaintForeground(mid + 1, Brushes.LightCoral);
                     if (key < numbers[mid])
                     {
                         right = mid - 1;
@@ -132,6 +149,8 @@ namespace trpo
                     {
                         left = mid + 1;
                     }
+                    await Task.Delay(1000);
+                    PaintForeground(mid + 1, Brushes.White);
                 }
 
                 for (int j = i - 1; j >= left; j--)
@@ -140,7 +159,7 @@ namespace trpo
 
                     numbers[j] = int.MinValue;
                     // Обновляем отображение в ListBox
-                    UpdateListBox(numbers);
+                    UpdateListBox(ListBoxNumbers, numbers);
                     ListBoxNumbers.SelectedIndex = j + 1;
                     ListBoxNumbers.ScrollIntoView(ListBoxNumbers.SelectedItem);
                     await Task.Delay(1000); // Задержка для визуализации
@@ -149,22 +168,31 @@ namespace trpo
                 numbers[left] = key;
 
                 // Обновляем отображение в ListBox
-                UpdateListBox(numbers);
+                UpdateListBox(ListBoxNumbers, numbers);
                 ListBoxNumbers.SelectedIndex = left;
                 ListBoxNumbers.ScrollIntoView(ListBoxNumbers.SelectedItem);
                 await Task.Delay(1000); // Задержка для визуализации
             }
         }
 
-        private void UpdateListBox(List<int> numbers)
+        private void PaintForeground(int index, Brush color)
         {
-            ListBoxNumbers.Items.Clear();
+            ListBoxItem item = (ListBoxItem)ListBoxId.ItemContainerGenerator.ContainerFromIndex(index);
+            if (item != null)
+            {
+                item.Background = color;
+            }
+        }
+
+        private void UpdateListBox(ListBox lb, List<int> numbers)
+        {
+            lb.Items.Clear();
             foreach (var number in numbers)
             {
                 if (number == int.MinValue)
-                    ListBoxNumbers.Items.Add(" ");
+                    lb.Items.Add(" ");
                 else
-                    ListBoxNumbers.Items.Add(number);
+                    lb.Items.Add(number);
             }
         }
     }

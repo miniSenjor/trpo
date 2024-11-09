@@ -1,17 +1,27 @@
 ﻿using OxyPlot.Series;
 using OxyPlot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OxyPlot.Wpf;
 
 namespace trpo
 {
     internal class MainViewModel
     {
         public PlotModel plotModel { get; set; }
+        public PlotModel plotModelDefalt { get; set; }
+        public MainViewModel() 
+        {
+            plotModelDefalt = new PlotModel { Title = "Сравнение методов сортировки" };
+            plotModelDefalt.Axes.Add(new OxyPlot.Axes.LinearAxis
+            {
+                Position = OxyPlot.Axes.AxisPosition.Bottom,
+                Title = "Кол-во элементов"
+            });
+            plotModelDefalt.Axes.Add(new OxyPlot.Axes.LinearAxis
+            {
+                Position = OxyPlot.Axes.AxisPosition.Left,
+                Title = "Кол-во перестановок"
+            });
+        }
         public MainViewModel(int count)
         {
             plotModel = new PlotModel { Title = "Сравнение методов сортировки"};
